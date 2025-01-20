@@ -1,34 +1,42 @@
 pipeline{
   agent any
   tools{
-    java ''
-    maven ''
-    gradle ''
+    jdk 'jdk21'
+    maven 'Maven.3.9.1'
+    gradle 'Gradle.8.10.2'
   }
 
   stages {
 
-    stage {
+    stage ('Build'){
+	steps {
       echo "Build application"
+	  }
     }
 
-    stage {
+    stage ('Test'){
+	steps {
       echo "Test application"
+	  }
     }
 
-    stage {
+    stage ('Deploy'){
+	steps {
       echo "Deploy application"
+	 }
     }
  
   }
 
-  post{
-    always {
-      echo "Build completed
-    } success {
-      echo "Build successful"
-    } failed {
+  post {
+    success {
+      echo "Build success"
+    } 
+	failure {
       echo "Build failed"
+    } 
+	always {
+      echo "Build execution finished"
     }
   }
 
